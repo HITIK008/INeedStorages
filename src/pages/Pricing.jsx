@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Pricing() {
   const plans = [
     {
@@ -129,15 +131,16 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <button
-              className={`w-full py-3 px-4 rounded-xl font-semibold transition-all ${
+            <Link
+              to="/contact"
+              className={`block text-center w-full py-3 px-4 rounded-xl font-semibold transition-all ${
                 plan.highlighted
                   ? "bg-indigo-600 text-white hover:bg-indigo-500"
                   : "bg-zinc-800 text-white hover:bg-zinc-700"
               }`}
             >
               {plan.buttonText}
-            </button>
+            </Link>
           </div>
         ))}
       </div>
