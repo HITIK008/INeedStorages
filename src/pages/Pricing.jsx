@@ -1,63 +1,77 @@
 export default function Pricing() {
   const plans = [
     {
-      name: "Free",
-      price: "$0",
-      inrPrice: "₹0",
-      description: "For basic file sharing and temporary storage.",
+      name: "50 GB",
+      price: "$0.99",
+      inrPrice: "₹79",
+      period: "/month",
       features: [
-        "500 MB Total Storage",
-        "Files expire after 7 days",
-        "Standard upload/download speeds",
-        "Ads on download links",
+        "50 GB Total Storage",
+        "Permanent Storage (No expiry)",
+        "Priority upload/download speeds",
       ],
-      buttonText: "Current Plan",
-      highlighted: false,
+      buttonText: "Subscribe",
     },
     {
-      name: "Pro",
+      name: "100 GB",
       price: "$1.99",
       inrPrice: "₹149",
       period: "/month",
-      description: "Perfect for students and professionals sharing larger files.",
       features: [
-        "50 GB Total Storage",
-        "Files kept for 90 days",
-        "Password protected files",
-        "No ads on download links",
-      ],
-      buttonText: "Upgrade to Pro",
-      highlighted: false,
-    },
-    {
-      name: "Creator",
-      price: "$5.99",
-      inrPrice: "₹499",
-      period: "/month",
-      description: "Ideal for content creators who need permanent storage.",
-      features: [
-        "250 GB Total Storage",
+        "100 GB Total Storage",
         "Permanent Storage (No expiry)",
         "Priority upload/download speeds",
-        "Custom branding on links",
       ],
-      buttonText: "Upgrade to Creator",
+      buttonText: "Subscribe",
+    },
+    {
+      name: "500 GB",
+      price: "$7.99",
+      inrPrice: "₹599",
+      period: "/month",
+      features: [
+        "500 GB Total Storage",
+        "Permanent Storage (No expiry)",
+        "Priority upload/download speeds",
+      ],
+      buttonText: "Subscribe",
       highlighted: true,
     },
     {
-      name: "Max",
+      name: "1 TB",
       price: "$14.99",
-      inrPrice: "₹1,499",
+      inrPrice: "₹1,199",
       period: "/month",
-      description: "For heavy users and small teams archiving large data.",
       features: [
-        "1 TB (1,024 GB) Total Storage",
+        "1,024 GB Total Storage",
         "Permanent Storage (No expiry)",
         "Highest priority speeds",
-        "Everything in Creator plan",
       ],
-      buttonText: "Upgrade to Max",
-      highlighted: false,
+      buttonText: "Subscribe",
+    },
+    {
+      name: "5 TB",
+      price: "$69.99",
+      inrPrice: "₹5,499",
+      period: "/month",
+      features: [
+        "5,120 GB Total Storage",
+        "Permanent Storage (No expiry)",
+        "Highest priority speeds",
+      ],
+      buttonText: "Subscribe",
+    },
+    {
+      name: "10 TB",
+      price: "$129.99",
+      inrPrice: "₹9,999",
+      period: "/month",
+      features: [
+        "10,240 GB Total Storage",
+        "Permanent Storage (No expiry)",
+        "Highest priority speeds",
+      ],
+      buttonText: "Subscribe",
     },
   ];
 
@@ -65,15 +79,14 @@ export default function Pricing() {
     <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
       <div className="text-center max-w-3xl mx-auto mb-16">
         <h1 className="text-4xl font-extrabold text-white sm:text-5xl tracking-tight mb-4">
-          Simple, transparent pricing
+          Choose your storage plan
         </h1>
         <p className="text-xl text-zinc-400">
-          Start for free, upgrade when you need permanent storage and premium features.
-          No hidden fees or bandwidth charges.
+          Simple, scalable pricing. Start with a free 500MB account, or upgrade to permanent storage tiers when you need more space.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {plans.map((plan) => (
           <div
             key={plan.name}
@@ -91,15 +104,11 @@ export default function Pricing() {
               </div>
             )}
 
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold text-white mb-2">{plan.name}</h2>
-              <p className="text-sm text-zinc-400 h-10">{plan.description}</p>
-            </div>
-
-            <div className="mb-6">
-              <div className="flex items-baseline text-4xl font-extrabold text-white">
+            <div className="mb-6 border-b border-zinc-800 pb-4">
+              <h2 className="text-2xl font-bold text-white mb-2">{plan.name}</h2>
+              <div className="flex items-baseline text-4xl font-extrabold text-emerald-400">
                 {plan.price}
-                {plan.period && <span className="text-xl text-zinc-400 font-medium ml-1">{plan.period}</span>}
+                <span className="text-xl text-zinc-400 font-medium ml-1">{plan.period}</span>
               </div>
               <div className="text-sm text-zinc-500 mt-1">or {plan.inrPrice}{plan.period}</div>
             </div>
@@ -108,7 +117,7 @@ export default function Pricing() {
               {plan.features.map((feature, idx) => (
                 <li key={idx} className="flex items-start">
                   <svg
-                    className={`h-5 w-5 shrink-0 ${plan.highlighted ? "text-indigo-400" : "text-emerald-400"}`}
+                    className={`h-5 w-5 shrink-0 ${plan.highlighted ? "text-indigo-400" : "text-zinc-500"}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -131,13 +140,6 @@ export default function Pricing() {
             </button>
           </div>
         ))}
-      </div>
-
-      <div className="mt-16 text-center">
-        <h2 className="text-lg font-semibold text-white mb-2">Non-profit organizations</h2>
-        <p className="text-zinc-400">
-          Qualifying non-profit sites and organizations get the Creator plan for free. <a href="/contact" className="text-indigo-400 hover:text-indigo-300">Contact us</a> to apply.
-        </p>
       </div>
     </div>
   );

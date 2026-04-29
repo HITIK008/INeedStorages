@@ -4,13 +4,16 @@ import { apiClient } from "../services/api";
 import { formatSize } from "../utils/formatSize";
 
 const PLAN_DETAILS = {
-  "Pro (50 GB)": { gb: 50, priceUsd: 1.99, priceInr: 149 },
-  "Creator (250 GB)": { gb: 250, priceUsd: 5.99, priceInr: 499 },
-  "Max (1 TB)": { gb: 1024, priceUsd: 14.99, priceInr: 1499 },
+  "50 GB": { gb: 50, priceUsd: 0.99, priceInr: 79 },
+  "100 GB": { gb: 100, priceUsd: 1.99, priceInr: 149 },
+  "500 GB": { gb: 500, priceUsd: 7.99, priceInr: 599 },
+  "1 TB": { gb: 1024, priceUsd: 14.99, priceInr: 1199 },
+  "5 TB": { gb: 5120, priceUsd: 69.99, priceInr: 5499 },
+  "10 TB": { gb: 10240, priceUsd: 129.99, priceInr: 9999 },
 };
 export default function Subscriptions() {
   const navigate = useNavigate();
-  const [selectedPlan, setSelectedPlan] = useState("Pro (50 GB)");
+  const [selectedPlan, setSelectedPlan] = useState("50 GB");
   const [months, setMonths] = useState(1);
   const [activeSubscriptions, setActiveSubscriptions] = useState([]);
   const [lastLoginAt, setLastLoginAt] = useState(null);
