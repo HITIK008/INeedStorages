@@ -1530,7 +1530,7 @@ setInterval(processExpiredSubscriptions, 60 * 60 * 1000);
 await initDB();
 const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`✓ Backend server running on http://0.0.0.0:${PORT}`);
-  console.log(`✓ Upload directory: ${path.join(__dirname, 'uploads')}`);
+  console.log(`✓ Storage: ${process.env.AWS_S3_BUCKET ? 'Cloud (R2)' : 'Local uploads/'}`);
   console.log(`✓ Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 server.requestTimeout = 0;
