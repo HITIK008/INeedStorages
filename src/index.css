@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-zinc-950 text-zinc-100;
+  transition: filter 0.3s ease, background-color 0.3s ease;
+}
+
+html[data-theme="light"] {
+  filter: invert(1) hue-rotate(180deg);
+  background-color: #f4f4f5; /* light zinc background equivalent */
+}
+
+/* Revert the filter for images, videos, and colored buttons to keep their original colors */
+html[data-theme="light"] img,
+html[data-theme="light"] video,
+html[data-theme="light"] [data-no-invert="true"] {
+  filter: invert(1) hue-rotate(180deg);
+}
