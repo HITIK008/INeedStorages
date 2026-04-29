@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { apiClient } from "../services/api";
 import { formatSize } from "../utils/formatSize";
 
-const PRICE_PER_GB_PER_MONTH = 0.12; // $12 per 100GB per month
-
+const PLAN_DETAILS = {
+  "Pro (50 GB)": { gb: 50, priceUsd: 1.99, priceInr: 149 },
+  "Creator (250 GB)": { gb: 250, priceUsd: 5.99, priceInr: 499 },
+  "Max (1 TB)": { gb: 1024, priceUsd: 14.99, priceInr: 1499 },
+};
 export default function Subscriptions() {
   const navigate = useNavigate();
-  const [amountGb, setAmountGb] = useState(100);
+  const [selectedPlan, setSelectedPlan] = useState("Pro (50 GB)");
   const [months, setMonths] = useState(1);
   const [activeSubscriptions, setActiveSubscriptions] = useState([]);
   const [lastLoginAt, setLastLoginAt] = useState(null);
@@ -17,8 +20,9 @@ export default function Subscriptions() {
     remainingStorage: 500 * 1024 * 1024,
   });
 
-  const totalPrice = amountGb * PRICE_PER_GB_PER_MONTH * months;
-
+  const plan = PLAN_DETAILS[selectedPlan];
+  const totalPriceUsd = plan.priceUsd * months;
+  const totalPriceInr = plan.priceInr * months;
   const handlePurchase = () => {
     navigate("/contact");
   };
@@ -76,21 +80,15 @@ export default function Subscriptions() {
           <h2 className="font-semibold mb-3">Buy New Subscriptions</h2>
           <div className="space-y-3">
             <div className="flex items-center justify-between gap-2">
-              <label className="text-zinc-300">Storage Amount</label>
+              <label className="text-zinc-300">Select Plan</label>
               <select
-                value={amountGb}
-                onChange={(e) => setAmountGb(Number(e.target.value))}
+                value={selectedPlan}
+                onChange={(e) => setSelectedPlan(e.target.value)}
                 className="bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-zinc-100"
               >
-                <option value={50}>50 GB</option>
-                <option value={100}>100 GB</option>
-                <option value={500}>500 GB</option>
-                <option value={1000}>1 TB</option>
-                <option value={2000}>2 TB</option>
-                <option value={5000}>5 TB</option>
-                <option value={10000}>10 TB</option>
-                <option value={20000}>20 TB</option>
-                <option value={50000}>50 TB</option>
+                {Object.keys(PLAN_DETAILS).map(planName => (
+                  <option key={planName} value={planName}>{planName}</option>
+                ))}
               </select>
             </div>
             <div className="flex items-center justify-between gap-2">
@@ -108,7 +106,7 @@ export default function Subscriptions() {
             </div>
             <div className="flex items-center justify-between gap-2">
               <span className="text-zinc-300">Total Price:</span>
-              <span className="font-semibold text-emerald-400">${totalPrice.toFixed(2)}</span>
+              <span className="font-semibold text-emerald-400">${totalPriceUsd.toFixed(2)} <span className="text-zinc-500 text-xs">(₹{totalPriceInr})</span></span>
             </div>
             <button
               onClick={handlePurchase}
@@ -207,8 +205,8 @@ export default function Subscriptions() {
         <h2 className="text-xl font-semibold text-zinc-100">Notes & Requirements</h2>
         <ul className="list-disc pl-6 space-y-2 text-zinc-300">
           <li>
-            Pricing formula: <strong>$12.00 per 100 GB per month</strong>. Current selection is{" "}
-            <strong>{amountGb >= 1000 ? `${amountGb / 1000} TB` : `${amountGb} GB`} × {periodLabel} = ${totalPrice.toFixed(2)}</strong>.
+            Selected Plan: <strong>{selectedPlan}</strong>. Total for {periodLabel}:{" "}
+            <strong>${totalPriceUsd.toFixed(2)} (or ₹{totalPriceInr})</strong>.
           </li>
           <li>
             Purchase requests are confirmed through the Contact page before activation.
